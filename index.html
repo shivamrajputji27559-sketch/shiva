@@ -74,38 +74,18 @@ border-radius:20px;
 text-align:center;
 font-weight:bold;
 box-shadow:0 6px 15px rgba(0,0,0,0.1);
-transition:0.3s;
+cursor:pointer;
 }
 
-.card:hover{
-transform:translateY(-5px);
-}
-
-.bottomNav{
-position:fixed;
-bottom:0;
-width:100%;
-max-width:420px;
-display:flex;
-justify-content:space-around;
-background:white;
-padding:15px 0;
-box-shadow:0 -5px 15px rgba(0,0,0,0.1);
-}
-
-.bottomNav div{
-font-size:20px;
-}
-
-.resetBtn{
-margin-top:15px;
-background:#ef4444;
-color:white;
-padding:8px 12px;
+button{
+padding:10px 15px;
 border:none;
 border-radius:10px;
-font-size:12px;
+background:#111;
+color:white;
+margin-top:15px;
 }
+
 </style>
 </head>
 
@@ -114,22 +94,18 @@ font-size:12px;
 <div class="app">
 
 <header>
-🔥 SHIVAM 180 DAYS PREMIUM
+🔥 SHIVAM 180 DAYS
 </header>
 
-<div class="dashboard">
+<div class="dashboard" id="mainContent">
 
 <div class="circle" id="progressCircle">
 <h1 id="dayNumber">1</h1>
 <p>Days Completed</p>
 </div>
 
-<div style="text-align:center;">
-<button class="resetBtn" onclick="resetMission()">Reset</button>
-</div>
-
 <div class="grid">
-<div class="card">💪 GYM</div>
+<div class="card" onclick="showGym()">💪 GYM</div>
 <div class="card">🥗 DIET</div>
 <div class="card">📚 SSC</div>
 <div class="card">💰 BUSINESS</div>
@@ -137,54 +113,13 @@ font-size:12px;
 
 </div>
 
-<div class="bottomNav">
-<div>🏠</div>
-<div>📘</div>
-<div>🎯</div>
-<div>⚙️</div>
-</div>
-
 </div>
 
 <script>
 
-let totalDays = 180;
-
-// Get or Set Start Date
-let startDate = localStorage.getItem("missionStart");
-
-if(!startDate){
-startDate = new Date().toISOString();
-localStorage.setItem("missionStart", startDate);
-}
-
-// Calculate difference
-let diff = Math.floor(
-(new Date() - new Date(startDate)) / (1000*60*60*24)
-) + 1;
-
-if(diff > totalDays) diff = totalDays;
-
-// Update number
-document.getElementById("dayNumber").innerText = diff;
-
-// Update circle
-let percent = (diff / totalDays) * 100;
-
-document.getElementById("progressCircle").style.background =
-`conic-gradient(#4ade80 ${percent}%, #e5e7eb 0%)`;
-
-// Reset function
-function resetMission(){
-localStorage.removeItem("missionStart");
-location.reload();
-}
-
-<script>
+// ===== 180 DAY SYSTEM =====
 
 let totalDays = 180;
-
-// ================= DAY COUNTER =================
 
 let startDate = localStorage.getItem("missionStart");
 
@@ -206,29 +141,23 @@ let percent = (diff / totalDays) * 100;
 document.getElementById("progressCircle").style.background =
 `conic-gradient(#4ade80 ${percent}%, #e5e7eb 0%)`;
 
-function resetMission(){
-localStorage.removeItem("missionStart");
-location.reload();
-}
 
-// ================= GYM MODULE =================
-
-document.querySelectorAll(".card")[0].addEventListener("click", showGym);
+// ===== GYM MODULE =====
 
 function showGym(){
 
-document.querySelector(".dashboard").innerHTML = `
+document.getElementById("mainContent").innerHTML = `
 <h2 style="text-align:center;">💪 6 Day Gym Split</h2>
 
-<div id="gymProgress" style="margin:15px 0;text-align:center;font-weight:bold;"></div>
+<div id="progressText" style="margin:10px 0;text-align:center;font-weight:bold;"></div>
 
-${makeDay("Day 1 - Chest & Triceps",[
+${makeDay("Day 1 - Chest",[
 "Bench Press 4x8",
-"Incline DB Press 3x10",
+"Incline DB 3x10",
 "Tricep Pushdown 3x12"
 ])}
 
-${makeDay("Day 2 - Back & Biceps",[
+${makeDay("Day 2 - Back",[
 "Pullups 4x8",
 "Barbell Row 3x10",
 "Bicep Curl 3x12"
@@ -240,26 +169,7 @@ ${makeDay("Day 3 - Legs",[
 "Calf Raise 4x15"
 ])}
 
-${makeDay("Day 4 - Shoulders",[
-"Overhead Press 4x8",
-"Lateral Raise 3x12",
-"Rear Delt Fly 3x12"
-])}
-
-${makeDay("Day 5 - Arms",[
-"Hammer Curl 3x12",
-"Tricep Dips 3x12"
-])}
-
-${makeDay("Day 6 - Full Body",[
-"Deadlift 4x6",
-"Burpees 3x15",
-"Pushups 3x20"
-])}
-
-<button onclick="location.reload()" style="margin-top:20px;padding:10px 15px;border:none;border-radius:10px;background:#111;color:white;">
-⬅ Back
-</button>
+<button onclick="location.reload()">⬅ Back</button>
 `;
 
 setupGym();
@@ -311,7 +221,7 @@ if(b.checked) done++;
 
 let percent = total === 0 ? 0 : Math.round((done/total)*100);
 
-document.getElementById("gymProgress").innerText =
+document.getElementById("progressText").innerText =
 "Workout Completed: " + percent + "%";
 
 }
@@ -320,4 +230,3 @@ document.getElementById("gymProgress").innerText =
 
 </body>
 </html>
-
