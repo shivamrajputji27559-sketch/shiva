@@ -1,0 +1,75 @@
+body{
+margin:0;
+font-family:Arial;
+background:#f2f2f2;
+}
+
+.header{
+background:#111;
+color:white;
+padding:20px;
+text-align:center;
+font-weight:bold;
+}
+
+.dashboard{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+padding:20px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:15px;
+text-align:center;
+font-weight:bold;
+box-shadow:0 4px 10px rgba(0,0,0,0.1);
+cursor:pointer;
+}
+
+.card:hover{
+transform:scale(1.05);
+transition:0.2s;
+}
+
+.section{
+background:white;
+margin:20px;
+padding:20px;
+border-radius:15px;
+}
+/* SSC Expand Style */
+
+.subject h3{
+background:#f1f1f1;
+padding:10px;
+border-radius:8px;
+cursor:pointer;
+margin-top:10px;
+}
+
+.topics{
+display:block;
+padding:10px;
+}
+
+.progressBox{
+margin-top:20px;
+}
+
+.progressBox div{
+margin-top:5px;
+font-weight:bold;
+}
+.tick{
+color:green;
+margin-left:8px;
+font-weight:bold;
+display:none;
+}
+
+label input:checked + span + .tick{
+display:inline;
+}
