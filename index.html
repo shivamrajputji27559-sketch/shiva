@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,7 +22,6 @@ min-height:100vh;
 background:white;
 border-radius:25px 25px 0 0;
 overflow:hidden;
-position:relative;
 }
 
 header{
@@ -29,7 +29,6 @@ background:#111827;
 color:white;
 padding:20px;
 text-align:center;
-font-size:18px;
 font-weight:bold;
 }
 
@@ -47,17 +46,6 @@ align-items:center;
 justify-content:center;
 flex-direction:column;
 box-shadow:0 8px 20px rgba(0,0,0,0.15);
-transition:0.3s;
-}
-
-.circle h1{
-font-size:40px;
-color:#111;
-}
-
-.circle p{
-font-size:14px;
-color:#555;
 }
 
 .grid{
@@ -77,6 +65,35 @@ box-shadow:0 6px 15px rgba(0,0,0,0.1);
 cursor:pointer;
 }
 
+.dayBox{
+background:#f9fafb;
+padding:15px;
+margin:12px 0;
+border-radius:15px;
+}
+
+.exercise{
+margin:8px 0;
+}
+
+.animBox{
+display:none;
+margin-top:8px;
+overflow:hidden;
+border-radius:10px;
+animation:fadeIn 0.3s ease-in-out;
+}
+
+.animBox img{
+width:100%;
+border-radius:10px;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(-5px);}
+to{opacity:1;transform:translateY(0);}
+}
+
 button{
 padding:10px 15px;
 border:none;
@@ -85,7 +102,6 @@ background:#111;
 color:white;
 margin-top:15px;
 }
-
 </style>
 </head>
 
@@ -93,9 +109,7 @@ margin-top:15px;
 
 <div class="app">
 
-<header>
-🔥 SHIVAM 180 DAYS
-</header>
+<header>🔥 SHIVAM 180 DAYS</header>
 
 <div class="dashboard" id="mainContent">
 
@@ -112,118 +126,117 @@ margin-top:15px;
 </div>
 
 </div>
-
 </div>
 
 <script>
 
 // ===== 180 DAY SYSTEM =====
-
-let totalDays = 180;
-
-let startDate = localStorage.getItem("missionStart");
-
+let totalDays=180;
+let startDate=localStorage.getItem("missionStart");
 if(!startDate){
-startDate = new Date().toISOString();
-localStorage.setItem("missionStart", startDate);
+startDate=new Date().toISOString();
+localStorage.setItem("missionStart",startDate);
 }
-
-let diff = Math.floor(
-(new Date() - new Date(startDate)) / (1000*60*60*24)
-) + 1;
-
-if(diff > totalDays) diff = totalDays;
-
-document.getElementById("dayNumber").innerText = diff;
-
-let percent = (diff / totalDays) * 100;
-
-document.getElementById("progressCircle").style.background =
-`conic-gradient(#4ade80 ${percent}%, #e5e7eb 0%)`;
+let diff=Math.floor((new Date()-new Date(startDate))/(1000*60*60*24))+1;
+if(diff>totalDays) diff=totalDays;
+document.getElementById("dayNumber").innerText=diff;
+let percentCircle=(diff/totalDays)*100;
+document.getElementById("progressCircle").style.background=
+`conic-gradient(#4ade80 ${percentCircle}%, #e5e7eb 0%)`;
 
 
 // ===== GYM MODULE =====
-
 function showGym(){
 
-document.getElementById("mainContent").innerHTML = `
+document.getElementById("mainContent").innerHTML=`
 <h2 style="text-align:center;">💪 6 Day Gym Split</h2>
-
-<div id="progressText" style="margin:10px 0;text-align:center;font-weight:bold;"></div>
+<div id="progressText" style="text-align:center;margin:10px 0;font-weight:bold;"></div>
 
 ${makeDay("Day 1 - Chest",[
-"Bench Press 4x8",
-"Incline DB 3x10",
-"Tricep Pushdown 3x12"
+["Bench Press 4x8","https://media.giphy.com/media/3o7TKr3nzbh5WgCFxe/giphy.gif"],
+["Incline DB 3x10","https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"],
+["Tricep Pushdown 3x12","https://media.giphy.com/media/xT0GqeSlGSRQut7wZi/giphy.gif"]
 ])}
 
 ${makeDay("Day 2 - Back",[
-"Pullups 4x8",
-"Barbell Row 3x10",
-"Bicep Curl 3x12"
+["Pullups 4x8","https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"],
+["Barbell Row 3x10","https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif"],
+["Bicep Curl 3x12","https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif"]
 ])}
 
 ${makeDay("Day 3 - Legs",[
-"Squats 4x10",
-"Leg Press 3x12",
-"Calf Raise 4x15"
+["Squats 4x10","https://media.giphy.com/media/3o6ZsX5f6gbr4R9v2o/giphy.gif"],
+["Leg Press 3x12","https://media.giphy.com/media/3o6ZsY2O6tQ7x9v5LO/giphy.gif"],
+["Calf Raise 4x15","https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif"]
+])}
+
+${makeDay("Day 4 - Shoulders",[
+["Overhead Press 4x8","https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"],
+["Lateral Raise 3x12","https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif"],
+["Rear Delt Fly 3x12","https://media.giphy.com/media/xT0GqeSlGSRQut7wZi/giphy.gif"]
+])}
+
+${makeDay("Day 5 - Arms",[
+["Hammer Curl 3x12","https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif"],
+["Tricep Dips 3x12","https://media.giphy.com/media/3oEjI6SIIHBdRxXI40/giphy.gif"]
+])}
+
+${makeDay("Day 6 - Full Body",[
+["Deadlift 4x6","https://media.giphy.com/media/3o6ZsX5f6gbr4R9v2o/giphy.gif"],
+["Burpees 3x15","https://media.giphy.com/media/l0MYEqEzwMWFCg8rm/giphy.gif"],
+["Pushups 3x20","https://media.giphy.com/media/3o7TKr3nzbh5WgCFxe/giphy.gif"]
 ])}
 
 <button onclick="location.reload()">⬅ Back</button>
 `;
 
 setupGym();
-
 }
 
 function makeDay(title, exercises){
-let html = `<div style="background:#f9fafb;padding:15px;margin:10px 0;border-radius:15px;">`;
-html += `<h4>${title}</h4>`;
-
+let html=`<div class="dayBox"><h4>${title}</h4>`;
 exercises.forEach((ex,i)=>{
-html += `
-<label style="display:block;margin:5px 0;">
+html+=`
+<div class="exercise">
+<label>
 <input type="checkbox" class="gymBox">
-${ex}
+<span onclick="toggleAnim(this)" style="cursor:pointer;">${ex[0]}</span>
 </label>
+<div class="animBox">
+<img src="${ex[1]}">
+</div>
+</div>
 `;
 });
-
-html += `</div>`;
+html+=`</div>`;
 return html;
 }
 
+function toggleAnim(element){
+let box=element.parentElement.parentElement.querySelector(".animBox");
+box.style.display=box.style.display==="block"?"none":"block";
+}
+
 function setupGym(){
-
-let boxes = document.querySelectorAll(".gymBox");
-
+let boxes=document.querySelectorAll(".gymBox");
 boxes.forEach((box,i)=>{
-box.checked = localStorage.getItem("gym"+i) === "true";
-
+box.checked=localStorage.getItem("gym"+i)==="true";
 box.addEventListener("change",()=>{
-localStorage.setItem("gym"+i, box.checked);
+localStorage.setItem("gym"+i,box.checked);
 updateGymProgress();
 });
 });
-
 updateGymProgress();
 }
 
 function updateGymProgress(){
-
-let boxes = document.querySelectorAll(".gymBox");
-let total = boxes.length;
-let done = 0;
-
-boxes.forEach(b=>{
-if(b.checked) done++;
-});
-
-let percent = total === 0 ? 0 : Math.round((done/total)*100);
-
-document.getElementById("progressText").innerText =
-"Workout Completed: " + percent + "%";
-
+let boxes=document.querySelectorAll(".gymBox");
+let total=boxes.length;
+let done=0;
+boxes.forEach(b=>{if(b.checked) done++;});
+let percent=total===0?0:Math.round((done/total)*100);
+document.getElementById("progressText").innerText=
+"Workout Completed: "+percent+"%";
 }
 
 </script>
