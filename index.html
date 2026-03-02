@@ -3,110 +3,66 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHIVAM 180 DAYS PRO</title>
+<title>SHIVAM 180 DAYS PRO MAX</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-
 body{
 background:linear-gradient(135deg,#0f172a,#1e293b);
-display:flex;
-justify-content:center;
-color:#111;
+display:flex;justify-content:center;
 }
-
 .app{
-width:100%;
-max-width:420px;
-background:white;
-min-height:100vh;
+width:100%;max-width:420px;
+background:white;min-height:100vh;
 border-radius:25px 25px 0 0;
 overflow:hidden;
-position:relative;
 }
-
 header{
-background:#0f172a;
-color:white;
-padding:20px;
-text-align:center;
-font-weight:bold;
-font-size:18px;
+background:#0f172a;color:white;
+padding:20px;text-align:center;font-weight:bold;
 }
-
 .section{padding:20px}
-
-.grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:15px;
-margin-top:20px;
-}
-
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
 .card{
-background:#f1f5f9;
-padding:20px;
-border-radius:18px;
-text-align:center;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 4px 15px rgba(0,0,0,0.1);
-transition:0.3s;
+background:#f1f5f9;padding:18px;border-radius:18px;
+text-align:center;font-weight:bold;cursor:pointer;
+box-shadow:0 4px 10px rgba(0,0,0,0.1)
 }
-.card:hover{transform:scale(1.05)}
-
-.box{
-background:#f8fafc;
-padding:15px;
-border-radius:15px;
-margin:10px 0;
-box-shadow:0 2px 8px rgba(0,0,0,0.08);
+.circle{
+width:160px;height:160px;border-radius:50%;
+margin:auto;display:flex;align-items:center;justify-content:center;
+flex-direction:column;box-shadow:0 5px 15px rgba(0,0,0,0.2)
 }
-
-.subject{
-background:#e2e8f0;
-padding:12px;
-border-radius:12px;
-margin-top:12px;
-cursor:pointer;
-font-weight:bold;
-}
-
-.topics{
-display:none;
-padding-left:10px;
-margin-top:8px;
-}
-
-.exercise img{
-width:100%;
-border-radius:12px;
-margin-top:8px;
-}
-
+.box{background:#f8fafc;padding:12px;border-radius:12px;margin:10px 0}
+.subject{background:#e2e8f0;padding:10px;border-radius:10px;margin-top:10px;cursor:pointer;font-weight:bold}
+.topics{display:none;padding-left:10px}
 button{
-padding:10px 15px;
-border:none;
-border-radius:10px;
-background:#0f172a;
-color:white;
-margin-top:15px;
+padding:8px 12px;border:none;border-radius:8px;
+background:#0f172a;color:white;margin-top:10px
 }
-
+input{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #ccc}
+.progress{font-weight:bold;margin:8px 0}
+img{width:100%;border-radius:10px;margin-top:6px}
 </style>
 </head>
 
 <body>
 <div class="app">
-<header>🔥 SHIVAM 180 DAYS PRO</header>
+<header>🔥 SHIVAM 180 DAYS PRO MAX</header>
 
 <div class="section" id="main">
 
+<div class="circle" id="circle">
+<h1 id="day">1</h1>
+<p>Days</p>
+</div>
+
 <div class="grid">
-<div class="card" onclick="showGym()">💪 GYM</div>
-<div class="card" onclick="showDiet()">🥗 DIET</div>
-<div class="card" onclick="showSSC()">📚 SSC</div>
-<div class="card" onclick="showBusiness()">💰 BUSINESS</div>
+<div class="card" onclick="gym()">💪 GYM</div>
+<div class="card" onclick="diet()">🥗 DIET</div>
+<div class="card" onclick="ssc()">📚 SSC</div>
+<div class="card" onclick="business()">💰 BUSINESS</div>
+<div class="card" onclick="books()">📘 BOOKS</div>
 </div>
 
 </div>
@@ -114,121 +70,108 @@ margin-top:15px;
 
 <script>
 
-function back(){
-location.reload();
-}
+// ===== DASHBOARD =====
+let total=180;
+let start=localStorage.getItem("start");
+if(!start){start=new Date().toISOString();localStorage.setItem("start",start);}
+let diff=Math.floor((new Date()-new Date(start))/(1000*60*60*24))+1;
+if(diff>total) diff=total;
+day.innerText=diff;
+circle.style.background=`conic-gradient(#22c55e ${(diff/total)*100}%, #e5e7eb 0%)`;
+
+function back(){location.reload();}
 
 // ===== GYM =====
-function showGym(){
+function gym(){
 main.innerHTML=`
-<h2>💪 6 Day Gym Split</h2>
-
-${gymDay("Day 1 - Chest",
-"Bench Press 4x8",
-"https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif")}
-
-${gymDay("Day 2 - Back",
-"Pullups 4x8",
-"https://media.giphy.com/media/3o7TKr3nzbh5WgCFxe/giphy.gif")}
-
-${gymDay("Day 3 - Legs",
-"Squats 4x10",
-"https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif")}
-
-${gymDay("Day 4 - Shoulder",
-"Overhead Press 4x8",
-"https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif")}
-
-${gymDay("Day 5 - Arms",
-"Hammer Curl 3x12",
-"https://media.giphy.com/media/3o7TKTDn976rzVgky4/giphy.gif")}
-
-${gymDay("Day 6 - Full Body",
-"Deadlift 4x6",
-"https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif")}
-
+<h2>💪 6 Day Gym</h2>
+<div class="progress" id="gProg"></div>
+${gymDay("Chest","Bench Press","https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif")}
+${gymDay("Back","Pullups","https://media.giphy.com/media/3o7TKr3nzbh5WgCFxe/giphy.gif")}
+${gymDay("Legs","Squats","https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif")}
+${gymDay("Shoulder","Overhead Press","https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif")}
+${gymDay("Arms","Hammer Curl","https://media.giphy.com/media/3o7TKTDn976rzVgky4/giphy.gif")}
+${gymDay("Full Body","Deadlift","https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif")}
 <button onclick="back()">⬅ Back</button>
 `;
+setupGym();
 }
 
-function gymDay(title,exercise,img){
-return `
-<div class="box exercise">
-<b>${title}</b><br>
-${exercise}
+function gymDay(day,exercise,img){
+return `<div class="box">
+<b>${day}</b><br>
+<label><input type="checkbox" class="g"> ${exercise}</label>
 <img src="${img}">
-</div>
-`;
+</div>`;
 }
 
-// ===== DIET =====
-function showDiet(){
+function setupGym(){
+let boxes=document.querySelectorAll(".g");
+boxes.forEach((b,i)=>{
+b.checked=localStorage.getItem("g"+i)==="true";
+b.onchange=()=>{localStorage.setItem("g"+i,b.checked);updateGym();}
+});
+updateGym();
+}
+
+function updateGym(){
+let b=document.querySelectorAll(".g");
+let d=0;b.forEach(x=>{if(x.checked)d++;});
+gProg.innerText="Workout: "+Math.round((d/b.length)*100)+"%";
+}
+
+// ===== DIET (PDF Based) =====
+function diet(){
 main.innerHTML=`
-<h2>🥗 Muscle Gain Diet Plan</h2>
-
-<div class="box">Meal 1: Oats 100g + Milk 300ml<br>600 Cal / 20g Protein</div>
-<div class="box">Meal 2: Peanut Butter 2 tbsp + Bread 4 slice<br>500 Cal / 15g Protein</div>
-<div class="box">Meal 3: Rice 250g + Dal + 4 Eggs<br>900 Cal / 40g Protein</div>
-<div class="box">Meal 4: Banana + Almonds<br>400 Cal / 10g Protein</div>
-<div class="box">Meal 5: Chicken 200g / Paneer 200g<br>800 Cal / 45g Protein</div>
-<div class="box">Meal 6: Milk + Peanut<br>400 Cal / 15g Protein</div>
-
-<b>Total: ~3600 Calories / 145g Protein</b>
-
+<h2>🥗 Muscle Gain Diet</h2>
+<div class="box">Early Morning: Soaked Chane + Soyabean + Peanuts</div>
+<div class="box">Breakfast: Banana Shake + Oats + Peanut Butter</div>
+<div class="box">Mid Snack: Dahi / Banana / Apple</div>
+<div class="box">Lunch: Normal Home Food + Dahi</div>
+<div class="box">Evening: Brown Bread + Peanut Butter</div>
+<div class="box">Post Workout: Banana Shake + Creatine</div>
+<div class="box">Dinner: Roti/Rice + Sabzi + Dal</div>
+<div class="box">Before Bed: Milk + Banana</div>
+<div class="box"><b>Protein Priority: 2x Bodyweight (grams)</b></div>
 <button onclick="back()">⬅ Back</button>
 `;
 }
 
-// ===== SSC =====
-function showSSC(){
+// ===== SSC FULL SYLLABUS =====
+function ssc(){
 main.innerHTML=`
 <h2>📚 SSC Complete Syllabus</h2>
-
-${subject("General Intelligence & Reasoning",
-["Analogy","Series","Coding-Decoding","Blood Relation","Puzzle","Venn Diagram","Syllogism","Seating Arrangement"])}
-
-${subject("Quantitative Aptitude",
-["Number System","Percentage","Profit & Loss","Ratio","Average","Time & Work","Algebra","Geometry","Mensuration","Trigonometry"])}
-
-${subject("English",
-["Reading Comprehension","Cloze Test","Error Detection","Synonyms","Antonyms","Voice","Narration","Para Jumble"])}
-
-${subject("General Awareness",
-["History","Polity","Geography","Economics","Physics","Chemistry","Biology","Current Affairs"])}
-
+${subject("Reasoning",["Analogy","Series","Coding-Decoding","Blood Relation","Venn Diagram","Syllogism","Seating Arrangement","Mirror Image"])}
+${subject("Maths",["Number System","Percentage","Profit & Loss","Ratio","Time & Work","Algebra","Geometry","Trigonometry","Data Interpretation"])}
+${subject("English",["Reading Comprehension","Cloze Test","Error Detection","Synonyms","Voice","Narration","Para Jumble"])}
+${subject("General Awareness",["History","Polity","Geography","Economics","Physics","Chemistry","Biology","Current Affairs"])}
 <button onclick="back()">⬅ Back</button>
 `;
 }
 
 function subject(title,topics){
 let t="";
-topics.forEach(x=>{
-t+=`<div>• ${x}</div>`;
-});
-return `
-<div class="subject" onclick="toggle(this)">${title}</div>
-<div class="topics">${t}</div>
-`;
+topics.forEach(x=>{t+=`<div>• ${x}</div>`});
+return `<div class="subject" onclick="toggle(this)">${title}</div>
+<div class="topics">${t}</div>`;
 }
 
 function toggle(el){
 let next=el.nextElementSibling;
-next.style.display= next.style.display==="block"?"none":"block";
+next.style.display=next.style.display==="block"?"none":"block";
 }
 
 // ===== BUSINESS =====
-function showBusiness(){
+function business(){
 main.innerHTML=`
-<h2>💰 Business Tracker</h2>
-
+<h2>💰 Business</h2>
 <input id="rev" placeholder="Revenue">
 <input id="ad" placeholder="Ad Spend">
-<button onclick="calc()">Calculate Profit</button>
+<button onclick="calc()">Calculate</button>
 <div id="profit"></div>
-
-<h3>Winning Product List</h3>
-${productLines(30)}
-
+<h3>30 Winning Products</h3>
+${products()}
+<button onclick="deleteProducts()">Delete All Products</button>
 <button onclick="back()">⬅ Back</button>
 `;
 }
@@ -236,17 +179,48 @@ ${productLines(30)}
 function calc(){
 let r=parseFloat(rev.value)||0;
 let a=parseFloat(ad.value)||0;
-profit.innerText="Profit: ₹"+(r-a);
+profit.innerText="Profit ₹ "+(r-a);
 }
 
-function productLines(n){
+function products(){
 let h="";
-for(let i=1;i<=n;i++){
-h+=`<input placeholder="Product ${i}">`;
+for(let i=1;i<=30;i++){
+h+=`<input placeholder="Product ${i}" id="p${i}">`;
 }
 return h;
+}
+
+function deleteProducts(){
+for(let i=1;i<=30;i++){
+document.getElementById("p"+i).value="";
+}
+}
+
+// ===== BOOKS =====
+function books(){
+main.innerHTML=`
+<h2>📘 Book Links</h2>
+<input id="bookLink" placeholder="Paste PDF Link">
+<button onclick="saveBook()">Save Link</button>
+<button onclick="deleteBook()">Delete Link</button>
+<div id="savedBook"></div>
+<button onclick="back()">⬅ Back</button>
+`;
+let saved=localStorage.getItem("book");
+if(saved){savedBook.innerHTML=`<a href="${saved}" target="_blank">Open Book</a>`;}
+}
+
+function saveBook(){
+localStorage.setItem("book",bookLink.value);
+location.reload();
+}
+
+function deleteBook(){
+localStorage.removeItem("book");
+location.reload();
 }
 
 </script>
 </body>
 </html>
+
