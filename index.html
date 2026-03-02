@@ -180,7 +180,144 @@ localStorage.removeItem("missionStart");
 location.reload();
 }
 
+<script>
+
+let totalDays = 180;
+
+// ================= DAY COUNTER =================
+
+let startDate = localStorage.getItem("missionStart");
+
+if(!startDate){
+startDate = new Date().toISOString();
+localStorage.setItem("missionStart", startDate);
+}
+
+let diff = Math.floor(
+(new Date() - new Date(startDate)) / (1000*60*60*24)
+) + 1;
+
+if(diff > totalDays) diff = totalDays;
+
+document.getElementById("dayNumber").innerText = diff;
+
+let percent = (diff / totalDays) * 100;
+
+document.getElementById("progressCircle").style.background =
+`conic-gradient(#4ade80 ${percent}%, #e5e7eb 0%)`;
+
+function resetMission(){
+localStorage.removeItem("missionStart");
+location.reload();
+}
+
+// ================= GYM MODULE =================
+
+document.querySelectorAll(".card")[0].addEventListener("click", showGym);
+
+function showGym(){
+
+document.querySelector(".dashboard").innerHTML = `
+<h2 style="text-align:center;">💪 6 Day Gym Split</h2>
+
+<div id="gymProgress" style="margin:15px 0;text-align:center;font-weight:bold;"></div>
+
+${makeDay("Day 1 - Chest & Triceps",[
+"Bench Press 4x8",
+"Incline DB Press 3x10",
+"Tricep Pushdown 3x12"
+])}
+
+${makeDay("Day 2 - Back & Biceps",[
+"Pullups 4x8",
+"Barbell Row 3x10",
+"Bicep Curl 3x12"
+])}
+
+${makeDay("Day 3 - Legs",[
+"Squats 4x10",
+"Leg Press 3x12",
+"Calf Raise 4x15"
+])}
+
+${makeDay("Day 4 - Shoulders",[
+"Overhead Press 4x8",
+"Lateral Raise 3x12",
+"Rear Delt Fly 3x12"
+])}
+
+${makeDay("Day 5 - Arms",[
+"Hammer Curl 3x12",
+"Tricep Dips 3x12"
+])}
+
+${makeDay("Day 6 - Full Body",[
+"Deadlift 4x6",
+"Burpees 3x15",
+"Pushups 3x20"
+])}
+
+<button onclick="location.reload()" style="margin-top:20px;padding:10px 15px;border:none;border-radius:10px;background:#111;color:white;">
+⬅ Back
+</button>
+`;
+
+setupGym();
+
+}
+
+function makeDay(title, exercises){
+let html = `<div style="background:#f9fafb;padding:15px;margin:10px 0;border-radius:15px;">`;
+html += `<h4>${title}</h4>`;
+
+exercises.forEach((ex,i)=>{
+html += `
+<label style="display:block;margin:5px 0;">
+<input type="checkbox" class="gymBox">
+${ex}
+</label>
+`;
+});
+
+html += `</div>`;
+return html;
+}
+
+function setupGym(){
+
+let boxes = document.querySelectorAll(".gymBox");
+
+boxes.forEach((box,i)=>{
+box.checked = localStorage.getItem("gym"+i) === "true";
+
+box.addEventListener("change",()=>{
+localStorage.setItem("gym"+i, box.checked);
+updateGymProgress();
+});
+});
+
+updateGymProgress();
+}
+
+function updateGymProgress(){
+
+let boxes = document.querySelectorAll(".gymBox");
+let total = boxes.length;
+let done = 0;
+
+boxes.forEach(b=>{
+if(b.checked) done++;
+});
+
+let percent = total === 0 ? 0 : Math.round((done/total)*100);
+
+document.getElementById("gymProgress").innerText =
+"Workout Completed: " + percent + "%";
+
+}
+
 </script>
 
 </body>
 </html>
+
