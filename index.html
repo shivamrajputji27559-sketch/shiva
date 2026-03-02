@@ -1,75 +1,12 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHIVAM 180 DAYS PRO</title>
-
-<style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
-body{
-background:linear-gradient(135deg,#0f172a,#1e293b);
-display:flex;justify-content:center;
-}
-.app{
-width:100%;max-width:420px;background:white;
-min-height:100vh;border-radius:25px 25px 0 0;
-overflow:hidden;
-}
-header{
-background:#0f172a;color:white;
-padding:20px;text-align:center;font-weight:bold;
-}
-.section{padding:20px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
-.card{
-background:#f1f5f9;padding:18px;border-radius:18px;
-text-align:center;font-weight:bold;cursor:pointer;
-box-shadow:0 4px 10px rgba(0,0,0,0.1)
-}
-.circle{
-width:160px;height:160px;border-radius:50%;
-margin:auto;display:flex;align-items:center;justify-content:center;
-flex-direction:column;box-shadow:0 5px 15px rgba(0,0,0,0.2)
-}
-.box{background:#f8fafc;padding:12px;border-radius:12px;margin:10px 0}
-.subject{
-background:#e2e8f0;padding:10px;border-radius:10px;
-margin-top:10px;cursor:pointer;font-weight:bold
-}
-.topics{display:none;padding-left:10px;margin-top:5px}
-button{
-padding:8px 12px;border:none;border-radius:8px;
-background:#0f172a;color:white;margin-top:10px
-}
-input{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #ccc}
-.progress{font-weight:bold;margin:8px 0}
-</style>
-</head>
-
-<body>
-<div class="app">
-<header>🔥 SHIVAM 180 DAYS PRO</header>
-
-<div class="section" id="main">
-
-<div class="circle" id="circle">
-<h1 id="day">1</h1>
-<p>Days</p>
-</div>
-
-<div class="grid">
-<div class="card" onclick="gym()">💪 GYM</div>
-<div class="card" onclick="diet()">🥗 DIET</div>
-<div class="card" onclick="ssc()">📚 SSC</div>
-<div class="card" onclick="business()">💰 BUSINESS</div>
-<div class="card" onclick="books()">📘 BOOKS</div>
-</div>
-
-</div>
-</div>
-
 <script>
+
+// ===== DARK MODE =====
+let dark=false;
+function toggleDark(){
+dark=!dark;
+document.body.style.background=dark?"#111":"linear-gradient(135deg,#0f172a,#1e293b)";
+document.querySelector(".app").style.background=dark?"#1e293b":"white";
+}
 
 // ===== DASHBOARD =====
 let total=180;
@@ -85,39 +22,52 @@ function back(){location.reload();}
 // ===== GYM =====
 function gym(){
 main.innerHTML=`
-<h2>💪 6 Day Gym Split</h2>
-<div class="progress" id="gProg"></div>
+<h2>💪 Gym Workout Plan</h2>
+<div id="gProg" class="progress"></div>
 
-${makeDay("Day 1 - Chest",["Bench Press 4x8","Incline DB 3x10","Tricep Pushdown 3x12"])}
-${makeDay("Day 2 - Back",["Pullups 4x8","Barbell Row 3x10","Bicep Curl 3x12"])}
-${makeDay("Day 3 - Legs",["Squats 4x10","Leg Press 3x12","Calf Raise 4x15"])}
-${makeDay("Day 4 - Shoulder",["Overhead Press 4x8","Lateral Raise 3x12","Rear Delt Fly 3x12"])}
-${makeDay("Day 5 - Arms",["Hammer Curl 3x12","Tricep Dips 3x12"])}
-${makeDay("Day 6 - Full Body",["Deadlift 4x6","Burpees 3x15","Pushups 3x20"])}
+${makeDay("Day 1: Chest, Shoulders, Triceps",
+["Bench Press","Shoulder Press","Tricep Pushdown"])}
+
+${makeDay("Day 2: Back & Biceps",
+["Pullups","Barbell Row","Bicep Curl"])}
+
+${makeDay("Day 3: Legs",
+["Squats","Hamstring Curl","Calf Raise"])}
+
+${makeDay("Day 4: Chest, Triceps, Shoulders",
+["Incline Press","Dips","Lateral Raise"])}
+
+${makeDay("Day 5: Back & Biceps",
+["Deadlift","Lat Pulldown","Hammer Curl"])}
+
+${makeDay("Day 6: Legs",
+["Leg Press","Lunges","Wall Sit"])}
+
+<h3>🏠 Home Workout</h3>
+<div class="box">
+Pushups 15 | Burpees 15 | Plank 1min | Jump Lunges 20
+</div>
 
 <button onclick="back()">⬅ Back</button>
 `;
 setupGym();
 }
 
-function makeDay(title,exercises){
-let html=`<div class="box"><b>${title}</b>`;
-exercises.forEach((e,i)=>{
-html+=`<label><input type="checkbox" class="g"> ${e}</label><br>`;
-});
-html+=`</div>`;
-return html;
+function makeDay(title,ex){
+let h=`<div class="box"><b>${title}</b><br>`;
+ex.forEach(e=>{h+=`<label><input type="checkbox" class="g"> ${e}</label><br>`});
+h+=`</div>`;
+return h;
 }
 
 function setupGym(){
-let boxes=document.querySelectorAll(".g");
-boxes.forEach((b,i)=>{
-b.checked=localStorage.getItem("g"+i)==="true";
-b.onchange=()=>{localStorage.setItem("g"+i,b.checked);updateGym();}
+let b=document.querySelectorAll(".g");
+b.forEach((x,i)=>{
+x.checked=localStorage.getItem("g"+i)==="true";
+x.onchange=()=>{localStorage.setItem("g"+i,x.checked);updateGym();}
 });
 updateGym();
 }
-
 function updateGym(){
 let b=document.querySelectorAll(".g");
 let d=0;b.forEach(x=>{if(x.checked)d++;});
@@ -127,104 +77,118 @@ gProg.innerText="Workout Completed: "+Math.round((d/b.length)*100)+"%";
 // ===== DIET =====
 function diet(){
 main.innerHTML=`
-<h2>🥗 Muscle Gain Diet Plan</h2>
+<h2>🥗 Diet Plan</h2>
 
-<div class="box">Early Morning: Soaked Chane + Soyabean + Peanuts</div>
-<div class="box">Breakfast: Banana Shake + Oats + Dry Fruits + Peanut Butter</div>
-<div class="box">Mid Snack: Dahi / Banana / Apple</div>
-<div class="box">Lunch: Normal Home Lunch + Extra Dahi</div>
-<div class="box">Evening: Brown Bread + Peanut Butter</div>
-<div class="box">Post Workout: Banana Shake + Creatine (5g)</div>
-<div class="box">Optional: Whey Protein if needed</div>
-<div class="box">Dinner: Roti/Rice + Sabzi + Dal</div>
-<div class="box">Before Bed: Milk + Banana</div>
-<div class="box"><b>Protein Target: 2x Bodyweight (grams)</b></div>
+<h3>VEG PLAN</h3>
+<div class="box">
+Oats 70g + 3 Banana + Paneer 100g<br>
+Rice 300g + Soya 50g<br>
+4 Roti + Sprouts + Potato<br>
+4 Roti + Paneer Bhurji<br>
+<b>Approx 3500 Calories</b>
+</div>
+
+<h3>NON-VEG PLAN</h3>
+<div class="box">
+Oats + Dry Fruits<br>
+Peanut Butter Toast + Milk<br>
+Brown Rice + Eggs<br>
+Mass Gainer Shake<br>
+Roti + Beans<br>
+<b>Protein: Bodyweight × 2g</b>
+</div>
 
 <button onclick="back()">⬅ Back</button>
 `;
 }
 
-// ===== SSC FULL SYLLABUS =====
+// ===== SSC PREMIUM =====
 function ssc(){
 main.innerHTML=`
-<h2>📚 SSC Complete Syllabus</h2>
+<h2>📚 SSC PREMIUM TRACKER</h2>
 
-${subject("1️⃣ General Intelligence & Reasoning",
-["Analogy","Classification","Series (Number / Alphabet)","Coding–Decoding","Blood Relation","Direction & Distance","Venn Diagram","Syllogism","Statement & Conclusion","Seating Arrangement","Non-Verbal Reasoning","Mirror Image / Paper Folding","Embedded Figures","📌 MTS → Easy level","📌 CGL → Moderate to Tough level"])}
+<div id="overall" class="progress"></div>
+<div id="dailyTarget" class="progress"></div>
 
-${subject("2️⃣ Quantitative Aptitude (Maths)",
-["Number System","Simplification","Percentage","Profit & Loss","Discount","Simple & Compound Interest","Ratio & Proportion","Partnership","Average","Time & Work","Time, Speed & Distance","Algebra (basic for MTS, advanced for CGL)","Geometry","Mensuration","Trigonometry (mainly CGL)","Data Interpretation","📌 MTS → Basic maths","📌 CGL → Advanced maths"])}
+<button onclick="startTimer()">Start Exam Timer (60min)</button>
+<div id="timer" class="progress"></div>
 
-${subject("3️⃣ English Comprehension",
-["Reading Comprehension","Cloze Test","Error Detection","Sentence Improvement","Fill in the Blanks","Synonyms & Antonyms","One Word Substitution","Idioms & Phrases","Active & Passive Voice","Direct & Indirect Speech","Para Jumbles","📌 MTS → Basic grammar","📌 CGL → Moderate level"])}
+${makeSubject("Reasoning",["Analogy","Classification","Series","Coding","Blood Relation","Venn Diagram","Syllogism","Seating Arrangement"])}
 
-${subject("4️⃣ General Awareness",
-["History (Ancient / Medieval / Modern)","Geography (India & World)","Polity (Constitution / Parliament / Judiciary)","Economics (Budget / Banking / Inflation)","Physics","Chemistry","Biology","Static GK","Current Affairs (6–8 months important)","📌 MTS → Static + Basic CA","📌 CGL → Deep GK + Current Affairs"])}
+${makeSubject("Maths",["Number System","Percentage","Profit & Loss","Ratio","Time & Work","Algebra","Geometry","Trigonometry"])}
 
+${makeSubject("English",["Reading","Cloze Test","Error","Voice","Narration","Para Jumble"])}
+
+${makeSubject("GA",["History","Polity","Geography","Economics","Physics","Chemistry","Biology","Current Affairs"])}
+
+<button onclick="toggleDark()">🌙 Dark Mode</button>
 <button onclick="back()">⬅ Back</button>
 `;
+setupSSC();
 }
 
-function subject(title,topics){
+function makeSubject(name,topics){
 let t="";
-topics.forEach(x=>{t+=`<div>• ${x}</div>`});
-return `<div class="subject" onclick="toggle(this)">${title}</div>
-<div class="topics">${t}</div>`;
+topics.forEach((x,i)=>{
+t+=`<label><input type="checkbox" class="sscBox"> ${x}</label><br>`;
+});
+return `<div class="box"><b>${name}</b><br>${t}</div>`;
 }
 
-function toggle(el){
-let next=el.nextElementSibling;
-next.style.display=next.style.display==="block"?"none":"block";
+function setupSSC(){
+let b=document.querySelectorAll(".sscBox");
+b.forEach((x,i)=>{
+x.checked=localStorage.getItem("ssc"+i)==="true";
+x.onchange=()=>{localStorage.setItem("ssc"+i,x.checked);updateSSC();}
+});
+updateSSC();
+}
+
+function updateSSC(){
+let b=document.querySelectorAll(".sscBox");
+let d=0;b.forEach(x=>{if(x.checked)d++;});
+overall.innerText="Overall Completion: "+Math.round((d/b.length)*100)+"%";
+
+let today=d%5;
+dailyTarget.innerText="Daily Target Completed: "+today+"/5";
+}
+
+// ===== EXAM TIMER =====
+let interval;
+function startTimer(){
+let time=60*60;
+interval=setInterval(()=>{
+time--;
+let min=Math.floor(time/60);
+let sec=time%60;
+timer.innerText="Time Left: "+min+":"+ (sec<10?"0":"")+sec;
+if(time<=0) clearInterval(interval);
+},1000);
 }
 
 // ===== BUSINESS =====
 function business(){
 main.innerHTML=`
-<h2>💰 Business Tracker</h2>
+<h2>💰 Business</h2>
 <input id="rev" placeholder="Revenue">
 <input id="ad" placeholder="Ad Spend">
 <button onclick="calc()">Calculate</button>
 <div id="profit"></div>
-
 <h3>30 Winning Products</h3>
-${products()}
-
+${makeProducts()}
 <button onclick="back()">⬅ Back</button>
 `;
 }
-
 function calc(){
 let r=parseFloat(rev.value)||0;
 let a=parseFloat(ad.value)||0;
 profit.innerText="Profit ₹ "+(r-a);
 }
-
-function products(){
+function makeProducts(){
 let h="";
-for(let i=1;i<=30;i++){
-h+=`<input placeholder="Product ${i}">`;
-}
+for(let i=1;i<=30;i++){h+=`<input placeholder="Product ${i}">`}
 return h;
 }
 
-// ===== BOOKS =====
-function books(){
-main.innerHTML=`
-<h2>📘 Book Link</h2>
-<input id="bookLink" placeholder="Paste PDF Link">
-<button onclick="saveBook()">Save</button>
-<div id="savedBook"></div>
-<button onclick="back()">⬅ Back</button>
-`;
-let saved=localStorage.getItem("book");
-if(saved){savedBook.innerHTML=`<a href="${saved}" target="_blank">Open Book</a>`;}
-}
-
-function saveBook(){
-localStorage.setItem("book",bookLink.value);
-location.reload();
-}
-
 </script>
-</body>
-</html>
+
