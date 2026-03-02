@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHIVAM 180 DAYS PRO MAX</title>
+<title>SHIVAM 180 DAYS PRO</title>
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
@@ -12,9 +12,8 @@ background:linear-gradient(135deg,#0f172a,#1e293b);
 display:flex;justify-content:center;
 }
 .app{
-width:100%;max-width:420px;
-background:white;min-height:100vh;
-border-radius:25px 25px 0 0;
+width:100%;max-width:420px;background:white;
+min-height:100vh;border-radius:25px 25px 0 0;
 overflow:hidden;
 }
 header{
@@ -34,21 +33,23 @@ margin:auto;display:flex;align-items:center;justify-content:center;
 flex-direction:column;box-shadow:0 5px 15px rgba(0,0,0,0.2)
 }
 .box{background:#f8fafc;padding:12px;border-radius:12px;margin:10px 0}
-.subject{background:#e2e8f0;padding:10px;border-radius:10px;margin-top:10px;cursor:pointer;font-weight:bold}
-.topics{display:none;padding-left:10px}
+.subject{
+background:#e2e8f0;padding:10px;border-radius:10px;
+margin-top:10px;cursor:pointer;font-weight:bold
+}
+.topics{display:none;padding-left:10px;margin-top:5px}
 button{
 padding:8px 12px;border:none;border-radius:8px;
 background:#0f172a;color:white;margin-top:10px
 }
 input{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #ccc}
 .progress{font-weight:bold;margin:8px 0}
-img{width:100%;border-radius:10px;margin-top:6px}
 </style>
 </head>
 
 <body>
 <div class="app">
-<header>🔥 SHIVAM 180 DAYS PRO MAX</header>
+<header>🔥 SHIVAM 180 DAYS PRO</header>
 
 <div class="section" id="main">
 
@@ -84,25 +85,28 @@ function back(){location.reload();}
 // ===== GYM =====
 function gym(){
 main.innerHTML=`
-<h2>💪 6 Day Gym</h2>
+<h2>💪 6 Day Gym Split</h2>
 <div class="progress" id="gProg"></div>
-${gymDay("Chest","Bench Press","https://media.giphy.com/media/l0MYt5jPR6QX5pnqM/giphy.gif")}
-${gymDay("Back","Pullups","https://media.giphy.com/media/3o7TKr3nzbh5WgCFxe/giphy.gif")}
-${gymDay("Legs","Squats","https://media.giphy.com/media/26AHONQ79FdWZhAI0/giphy.gif")}
-${gymDay("Shoulder","Overhead Press","https://media.giphy.com/media/3o7btPCcdNniyf0ArS/giphy.gif")}
-${gymDay("Arms","Hammer Curl","https://media.giphy.com/media/3o7TKTDn976rzVgky4/giphy.gif")}
-${gymDay("Full Body","Deadlift","https://media.giphy.com/media/l0MYC0LajbaPoEADu/giphy.gif")}
+
+${makeDay("Day 1 - Chest",["Bench Press 4x8","Incline DB 3x10","Tricep Pushdown 3x12"])}
+${makeDay("Day 2 - Back",["Pullups 4x8","Barbell Row 3x10","Bicep Curl 3x12"])}
+${makeDay("Day 3 - Legs",["Squats 4x10","Leg Press 3x12","Calf Raise 4x15"])}
+${makeDay("Day 4 - Shoulder",["Overhead Press 4x8","Lateral Raise 3x12","Rear Delt Fly 3x12"])}
+${makeDay("Day 5 - Arms",["Hammer Curl 3x12","Tricep Dips 3x12"])}
+${makeDay("Day 6 - Full Body",["Deadlift 4x6","Burpees 3x15","Pushups 3x20"])}
+
 <button onclick="back()">⬅ Back</button>
 `;
 setupGym();
 }
 
-function gymDay(day,exercise,img){
-return `<div class="box">
-<b>${day}</b><br>
-<label><input type="checkbox" class="g"> ${exercise}</label>
-<img src="${img}">
-</div>`;
+function makeDay(title,exercises){
+let html=`<div class="box"><b>${title}</b>`;
+exercises.forEach((e,i)=>{
+html+=`<label><input type="checkbox" class="g"> ${e}</label><br>`;
+});
+html+=`</div>`;
+return html;
 }
 
 function setupGym(){
@@ -117,22 +121,25 @@ updateGym();
 function updateGym(){
 let b=document.querySelectorAll(".g");
 let d=0;b.forEach(x=>{if(x.checked)d++;});
-gProg.innerText="Workout: "+Math.round((d/b.length)*100)+"%";
+gProg.innerText="Workout Completed: "+Math.round((d/b.length)*100)+"%";
 }
 
-// ===== DIET (PDF Based) =====
+// ===== DIET =====
 function diet(){
 main.innerHTML=`
-<h2>🥗 Muscle Gain Diet</h2>
+<h2>🥗 Muscle Gain Diet Plan</h2>
+
 <div class="box">Early Morning: Soaked Chane + Soyabean + Peanuts</div>
-<div class="box">Breakfast: Banana Shake + Oats + Peanut Butter</div>
+<div class="box">Breakfast: Banana Shake + Oats + Dry Fruits + Peanut Butter</div>
 <div class="box">Mid Snack: Dahi / Banana / Apple</div>
-<div class="box">Lunch: Normal Home Food + Dahi</div>
+<div class="box">Lunch: Normal Home Lunch + Extra Dahi</div>
 <div class="box">Evening: Brown Bread + Peanut Butter</div>
-<div class="box">Post Workout: Banana Shake + Creatine</div>
+<div class="box">Post Workout: Banana Shake + Creatine (5g)</div>
+<div class="box">Optional: Whey Protein if needed</div>
 <div class="box">Dinner: Roti/Rice + Sabzi + Dal</div>
 <div class="box">Before Bed: Milk + Banana</div>
-<div class="box"><b>Protein Priority: 2x Bodyweight (grams)</b></div>
+<div class="box"><b>Protein Target: 2x Bodyweight (grams)</b></div>
+
 <button onclick="back()">⬅ Back</button>
 `;
 }
@@ -141,10 +148,19 @@ main.innerHTML=`
 function ssc(){
 main.innerHTML=`
 <h2>📚 SSC Complete Syllabus</h2>
-${subject("Reasoning",["Analogy","Series","Coding-Decoding","Blood Relation","Venn Diagram","Syllogism","Seating Arrangement","Mirror Image"])}
-${subject("Maths",["Number System","Percentage","Profit & Loss","Ratio","Time & Work","Algebra","Geometry","Trigonometry","Data Interpretation"])}
-${subject("English",["Reading Comprehension","Cloze Test","Error Detection","Synonyms","Voice","Narration","Para Jumble"])}
-${subject("General Awareness",["History","Polity","Geography","Economics","Physics","Chemistry","Biology","Current Affairs"])}
+
+${subject("1️⃣ General Intelligence & Reasoning",
+["Analogy","Classification","Series (Number / Alphabet)","Coding–Decoding","Blood Relation","Direction & Distance","Venn Diagram","Syllogism","Statement & Conclusion","Seating Arrangement","Non-Verbal Reasoning","Mirror Image / Paper Folding","Embedded Figures","📌 MTS → Easy level","📌 CGL → Moderate to Tough level"])}
+
+${subject("2️⃣ Quantitative Aptitude (Maths)",
+["Number System","Simplification","Percentage","Profit & Loss","Discount","Simple & Compound Interest","Ratio & Proportion","Partnership","Average","Time & Work","Time, Speed & Distance","Algebra (basic for MTS, advanced for CGL)","Geometry","Mensuration","Trigonometry (mainly CGL)","Data Interpretation","📌 MTS → Basic maths","📌 CGL → Advanced maths"])}
+
+${subject("3️⃣ English Comprehension",
+["Reading Comprehension","Cloze Test","Error Detection","Sentence Improvement","Fill in the Blanks","Synonyms & Antonyms","One Word Substitution","Idioms & Phrases","Active & Passive Voice","Direct & Indirect Speech","Para Jumbles","📌 MTS → Basic grammar","📌 CGL → Moderate level"])}
+
+${subject("4️⃣ General Awareness",
+["History (Ancient / Medieval / Modern)","Geography (India & World)","Polity (Constitution / Parliament / Judiciary)","Economics (Budget / Banking / Inflation)","Physics","Chemistry","Biology","Static GK","Current Affairs (6–8 months important)","📌 MTS → Static + Basic CA","📌 CGL → Deep GK + Current Affairs"])}
+
 <button onclick="back()">⬅ Back</button>
 `;
 }
@@ -164,14 +180,15 @@ next.style.display=next.style.display==="block"?"none":"block";
 // ===== BUSINESS =====
 function business(){
 main.innerHTML=`
-<h2>💰 Business</h2>
+<h2>💰 Business Tracker</h2>
 <input id="rev" placeholder="Revenue">
 <input id="ad" placeholder="Ad Spend">
 <button onclick="calc()">Calculate</button>
 <div id="profit"></div>
+
 <h3>30 Winning Products</h3>
 ${products()}
-<button onclick="deleteProducts()">Delete All Products</button>
+
 <button onclick="back()">⬅ Back</button>
 `;
 }
@@ -185,24 +202,17 @@ profit.innerText="Profit ₹ "+(r-a);
 function products(){
 let h="";
 for(let i=1;i<=30;i++){
-h+=`<input placeholder="Product ${i}" id="p${i}">`;
+h+=`<input placeholder="Product ${i}">`;
 }
 return h;
-}
-
-function deleteProducts(){
-for(let i=1;i<=30;i++){
-document.getElementById("p"+i).value="";
-}
 }
 
 // ===== BOOKS =====
 function books(){
 main.innerHTML=`
-<h2>📘 Book Links</h2>
+<h2>📘 Book Link</h2>
 <input id="bookLink" placeholder="Paste PDF Link">
-<button onclick="saveBook()">Save Link</button>
-<button onclick="deleteBook()">Delete Link</button>
+<button onclick="saveBook()">Save</button>
 <div id="savedBook"></div>
 <button onclick="back()">⬅ Back</button>
 `;
@@ -215,12 +225,6 @@ localStorage.setItem("book",bookLink.value);
 location.reload();
 }
 
-function deleteBook(){
-localStorage.removeItem("book");
-location.reload();
-}
-
 </script>
 </body>
 </html>
-
