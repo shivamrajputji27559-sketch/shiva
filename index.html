@@ -3,38 +3,138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SHIVAM PRO APP</title>
-<link rel="stylesheet" href="style.css">
+<title>SHIVAM 180 DAYS</title>
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial;}
+
+body{
+background:linear-gradient(135deg,#1e1e2f,#2c2c54);
+display:flex;
+justify-content:center;
+}
+
+.app{
+width:100%;
+max-width:420px;
+min-height:100vh;
+background:white;
+border-radius:25px 25px 0 0;
+overflow:hidden;
+position:relative;
+}
+
+header{
+background:#111827;
+color:white;
+padding:20px;
+text-align:center;
+font-size:18px;
+font-weight:bold;
+}
+
+.dashboard{
+padding:20px;
+}
+
+.circle{
+width:180px;
+height:180px;
+border-radius:50%;
+background:conic-gradient(#4ade80 25%, #e5e7eb 0%);
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+box-shadow:0 8px 20px rgba(0,0,0,0.15);
+}
+
+.circle h1{
+font-size:40px;
+color:#111;
+}
+
+.circle p{
+font-size:14px;
+color:#555;
+}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:25px;
+}
+
+.card{
+background:#f9fafb;
+padding:20px;
+border-radius:20px;
+text-align:center;
+font-weight:bold;
+box-shadow:0 6px 15px rgba(0,0,0,0.1);
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-5px);
+}
+
+.bottomNav{
+position:fixed;
+bottom:0;
+width:100%;
+max-width:420px;
+display:flex;
+justify-content:space-around;
+background:white;
+padding:15px 0;
+box-shadow:0 -5px 15px rgba(0,0,0,0.1);
+}
+
+.bottomNav div{
+font-size:20px;
+}
+
+.section{
+padding:20px;
+}
+</style>
 </head>
 
 <body>
 
-<div class="header">
-SHIVAM FITNESS – 180 DAYS
-</div>
+<div class="app">
+
+<header>
+🔥 SHIVAM 180 DAYS PREMIUM
+</header>
 
 <div class="dashboard">
 
-<div class="card" onclick="openSection('gym')">
-💪 GYM
+<div class="circle">
+<h1>5</h1>
+<p>Days Completed</p>
 </div>
 
-<div class="card" onclick="openSection('meal')">
-🥗 DIET
-</div>
-
-<div class="card" onclick="openSection('ssc')">
-📚 SSC TASK
-</div>
-
-<div class="card" onclick="openSection('business')">
-💰 BUSINESS
+<div class="grid">
+<div class="card">💪 GYM</div>
+<div class="card">🥗 DIET</div>
+<div class="card">📚 SSC</div>
+<div class="card">💰 BUSINESS</div>
 </div>
 
 </div>
 
-<div id="content"></div>
+<div class="bottomNav">
+<div>🏠</div>
+<div>📘</div>
+<div>🎯</div>
+<div>⚙️</div>
+</div>
 
-<script src="app.js"></script>
+</div>
+
 </body>
 </html>
