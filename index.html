@@ -1,4 +1,4 @@
-+=`<i<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
@@ -7,49 +7,97 @@
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box;font-family:Arial}
+
 body{
 background:linear-gradient(135deg,#0f172a,#1e293b);
-display:flex;justify-content:center;
+display:flex;
+justify-content:center;
 }
+
 .app{
-width:100%;max-width:420px;background:white;
-min-height:100vh;border-radius:25px 25px 0 0;
+width:100%;
+max-width:420px;
+background:white;
+min-height:100vh;
+border-radius:25px 25px 0 0;
 overflow:hidden;
 }
+
 header{
-background:#0f172a;color:white;
-padding:20px;text-align:center;font-weight:bold;
+background:#0f172a;
+color:white;
+padding:20px;
+text-align:center;
+font-weight:bold;
 }
+
 .section{padding:20px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:20px}
+
+.grid{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:15px;
+margin-top:20px
+}
+
 .card{
-background:#f1f5f9;padding:18px;border-radius:18px;
-text-align:center;font-weight:bold;cursor:pointer;
+background:#f1f5f9;
+padding:18px;
+border-radius:18px;
+text-align:center;
+font-weight:bold;
+cursor:pointer;
 box-shadow:0 4px 10px rgba(0,0,0,0.1)
 }
+
 .circle{
-width:160px;height:160px;border-radius:50%;
-margin:auto;display:flex;align-items:center;justify-content:center;
-flex-direction:column;box-shadow:0 5px 15px rgba(0,0,0,0.2)
+width:160px;
+height:160px;
+border-radius:50%;
+margin:auto;
+display:flex;
+align-items:center;
+justify-content:center;
+flex-direction:column;
+box-shadow:0 5px 15px rgba(0,0,0,0.2)
 }
-.box{background:#f8fafc;padding:12px;border-radius:12px;margin:10px 0}
-.subject{
-background:#e2e8f0;padding:10px;border-radius:10px;
-margin-top:10px;cursor:pointer;font-weight:bold
+
+.box{
+background:#f8fafc;
+padding:12px;
+border-radius:12px;
+margin:10px 0
 }
-.topics{display:none;padding-left:10px;margin-top:5px}
+
+input{
+width:100%;
+padding:8px;
+margin:6px 0;
+border-radius:6px;
+border:1px solid #ccc
+}
+
 button{
-padding:8px 12px;border:none;border-radius:8px;
-background:#0f172a;color:white;margin-top:10px
+padding:8px 12px;
+border:none;
+border-radius:8px;
+background:#0f172a;
+color:white;
+margin-top:10px
 }
-input{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #ccc}
-.progress{font-weight:bold;margin:8px 0}
+
+.progress{
+font-weight:bold;
+margin:8px 0
+}
 </style>
 </head>
 
 <body>
+
 <div class="app">
-<header>🔥 SHIVAM 180 DAYS PRO</header>
+
+<header>🔥 SHIVAM 180 DAYS SYSTEM</header>
 
 <div class="section" id="main">
 
@@ -59,11 +107,11 @@ input{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #cc
 </div>
 
 <div class="grid">
-<div class="card" onclick="gym()">💪 GYM</div>
-<div class="card" onclick="diet()">🥗 DIET</div>
-<div class="card" onclick="ssc()">📚 SSC</div>
-<div class="card" onclick="business()">💰 BUSINESS</div>
-<div class="card" onclick="books()">📘 BOOKS</div>
+<div class="card" onclick="showGym()">💪 GYM</div>
+<div class="card" onclick="showDiet()">🥗 DIET</div>
+<div class="card" onclick="showSSC()">📚 SSC</div>
+<div class="card" onclick="showBusiness()">💰 BUSINESS</div>
+<div class="card" onclick="showBooks()">📘 BOOKS</div>
 </div>
 
 </div>
@@ -72,159 +120,336 @@ input{width:100%;padding:8px;margin:6px 0;border-radius:6px;border:1px solid #cc
 <script>
 
 // ===== DASHBOARD =====
-let total=180;
-let start=localStorage.getItem("start");
-if(!start){start=new Date().toISOString();localStorage.setItem("start",start);}
-let diff=Math.floor((new Date()-new Date(start))/(1000*60*60*24))+1;
-if(diff>total) diff=total;
-day.innerText=diff;
-circle.style.background=`conic-gradient(#22c55e ${(diff/total)*100}%, #e5e7eb 0%)`;
+const mainDiv=document.getElementById("main")
+const dayEl=document.getElementById("day")
+const circleEl=document.getElementById("circle")
 
-function back(){location.reload();}
+let total=180
+let start=localStorage.getItem("start")
 
-// ===== GYM =====
-function gym(){
-main.innerHTML=`
-<h2>💪 6 Day Gym Split</h2>
-<div class="progress" id="gProg"></div>
-
-${makeDay("Day 1 - Chest",["Bench Press 4x8","Incline DB 3x10","Tricep Pushdown 3x12"])}
-${makeDay("Day 2 - Back",["Pullups 4x8","Barbell Row 3x10","Bicep Curl 3x12"])}
-${makeDay("Day 3 - Legs",["Squats 4x10","Leg Press 3x12","Calf Raise 4x15"])}
-${makeDay("Day 4 - Shoulder",["Overhead Press 4x8","Lateral Raise 3x12","Rear Delt Fly 3x12"])}
-${makeDay("Day 5 - Arms",["Hammer Curl 3x12","Tricep Dips 3x12"])}
-${makeDay("Day 6 - Full Body",["Deadlift 4x6","Burpees 3x15","Pushups 3x20"])}
-
-<button onclick="back()">⬅ Back</button>
-`;
-setupGym();
+if(!start){
+start=new Date().toISOString()
+localStorage.setItem("start",start)
 }
 
-function makeDay(title,exercises){
-let html=`<div class="box"><b>${title}</b>`;
-exercises.forEach((e,i)=>{
-html+=`<label><input type="checkbox" class="g"> ${e}</label><br>`;
-});
-html+=`</div>`;
-return html;
+let diff=Math.floor((new Date()-new Date(start))/(1000*60*60*24))+1
+if(diff>total) diff=total
+
+dayEl.innerText=diff
+
+circleEl.style.background=
+`conic-gradient(#22c55e ${(diff/total)*100}%, #e5e7eb 0%)`
+
+function back(){location.reload()}
+
+
+// ===== GYM =====
+function showGym(){
+
+mainDiv.innerHTML=`
+<h2>💪 6 Day Gym Split</h2>
+<div id="gProg" class="progress"></div>
+
+${makeDay("Day 1 - Chest",["Bench Press","Incline DB","Pushdown"])}
+${makeDay("Day 2 - Back",["Pullups","Barbell Row","Curl"])}
+${makeDay("Day 3 - Legs",["Squats","Leg Press","Calf Raise"])}
+${makeDay("Day 4 - Shoulder",["Overhead Press","Lateral Raise","Rear Fly"])}
+${makeDay("Day 5 - Arms",["Hammer Curl","Dips"])}
+${makeDay("Day 6 - Full Body",["Deadlift","Burpees","Pushups"])}
+
+<button onclick="back()">⬅ Back</button>
+`
+
+setupGym()
+
+}
+
+function makeDay(title,ex){
+
+let h=`<div class="box"><b>${title}</b><br>`
+
+ex.forEach(e=>{
+h+=`<label><input type="checkbox" class="g"> ${e}</label><br>`
+})
+
+h+=`</div>`
+
+return h
+
 }
 
 function setupGym(){
-let boxes=document.querySelectorAll(".g");
+
+let boxes=document.querySelectorAll(".g")
+
 boxes.forEach((b,i)=>{
-b.checked=localStorage.getItem("g"+i)==="true";
-b.onchange=()=>{localStorage.setItem("g"+i,b.checked);updateGym();}
-});
-updateGym();
+
+b.checked=localStorage.getItem("g"+i)==="true"
+
+b.onchange=()=>{
+localStorage.setItem("g"+i,b.checked)
+updateGym()
+}
+
+})
+
+updateGym()
+
 }
 
 function updateGym(){
-let b=document.querySelectorAll(".g");
-let d=0;b.forEach(x=>{if(x.checked)d++;});
-gProg.innerText="Workout Completed: "+Math.round((d/b.length)*100)+"%";
+
+let b=document.querySelectorAll(".g")
+
+let d=0
+
+b.forEach(x=>{
+if(x.checked) d++
+})
+
+document.getElementById("gProg").innerText=
+"Workout Completed: "+Math.round((d/b.length)*100)+"%"
+
 }
+
 
 // ===== DIET =====
-function diet(){
-main.innerHTML=`
-<h2>🥗 Muscle Gain Diet Plan</h2>
+function showDiet(){
 
-<div class="box">Early Morning: Soaked Chane + Soyabean + Peanuts</div>
-<div class="box">Breakfast: Banana Shake + Oats + Dry Fruits + Peanut Butter</div>
-<div class="box">Mid Snack: Dahi / Banana / Apple</div>
-<div class="box">Lunch: Normal Home Lunch + Extra Dahi</div>
-<div class="box">Evening: Brown Bread + Peanut Butter</div>
-<div class="box">Post Workout: Banana Shake + Creatine (5g)</div>
-<div class="box">Optional: Whey Protein if needed</div>
-<div class="box">Dinner: Roti/Rice + Sabzi + Dal</div>
-<div class="box">Before Bed: Milk + Banana</div>
-<div class="box"><b>Protein Target: 2x Bodyweight (grams)</b></div>
+mainDiv.innerHTML=`
+<h2>🥗 Muscle Gain Diet</h2>
 
-<button onclick="back()">⬅ Back</button>
-`;
-}
+<div class="box">
+Meal 1: Oats + Banana + Paneer
+</div>
 
-// ===== SSC FULL SYLLABUS =====
-function ssc(){
-main.innerHTML=`
-<h2>📚 SSC Complete Syllabus</h2>
+<div class="box">
+Meal 2: Rice + Soya Chunks
+</div>
 
-${subject("1️⃣ General Intelligence & Reasoning",
-["Analogy","Classification","Series (Number / Alphabet)","Coding–Decoding","Blood Relation","Direction & Distance","Venn Diagram","Syllogism","Statement & Conclusion","Seating Arrangement","Non-Verbal Reasoning","Mirror Image / Paper Folding","Embedded Figures","📌 MTS → Easy level","📌 CGL → Moderate to Tough level"])}
+<div class="box">
+Meal 3: 4 Roti + Sprouts + Potato
+</div>
 
-${subject("2️⃣ Quantitative Aptitude (Maths)",
-["Number System","Simplification","Percentage","Profit & Loss","Discount","Simple & Compound Interest","Ratio & Proportion","Partnership","Average","Time & Work","Time, Speed & Distance","Algebra (basic for MTS, advanced for CGL)","Geometry","Mensuration","Trigonometry (mainly CGL)","Data Interpretation","📌 MTS → Basic maths","📌 CGL → Advanced maths"])}
+<div class="box">
+Meal 4: Paneer Bhurji + Roti
+</div>
 
-${subject("3️⃣ English Comprehension",
-["Reading Comprehension","Cloze Test","Error Detection","Sentence Improvement","Fill in the Blanks","Synonyms & Antonyms","One Word Substitution","Idioms & Phrases","Active & Passive Voice","Direct & Indirect Speech","Para Jumbles","📌 MTS → Basic grammar","📌 CGL → Moderate level"])}
-
-${subject("4️⃣ General Awareness",
-["History (Ancient / Medieval / Modern)","Geography (India & World)","Polity (Constitution / Parliament / Judiciary)","Economics (Budget / Banking / Inflation)","Physics","Chemistry","Biology","Static GK","Current Affairs (6–8 months important)","📌 MTS → Static + Basic CA","📌 CGL → Deep GK + Current Affairs"])}
+<b>Approx 3500 Calories</b>
 
 <button onclick="back()">⬅ Back</button>
-`;
+`
+
 }
 
-function subject(title,topics){
-let t="";
-topics.forEach(x=>{t+=`<div>• ${x}</div>`});
-return `<div class="subject" onclick="toggle(this)">${title}</div>
-<div class="topics">${t}</div>`;
+
+// ===== SSC FULL =====
+function showSSC(){
+
+mainDiv.innerHTML=`
+<h2>📚 SSC FULL SYLLABUS</h2>
+
+<div class="progress" id="sscOverall"></div>
+
+<h3>1️⃣ General Intelligence & Reasoning</h3>
+<div class="box">
+${makeSSCList([
+"Analogy","Classification","Series","Coding–Decoding","Blood Relation",
+"Direction & Distance","Venn Diagram","Syllogism","Statement & Conclusion",
+"Seating Arrangement","Non-Verbal Reasoning","Mirror Image","Embedded Figures"
+])}
+</div>
+
+<h3>2️⃣ Quantitative Aptitude</h3>
+<div class="box">
+${makeSSCList([
+"Number System","Simplification","Percentage","Profit & Loss","Discount",
+"Simple Interest","Compound Interest","Ratio","Partnership","Average",
+"Time & Work","Time Speed Distance","Algebra","Geometry","Mensuration",
+"Trigonometry","Data Interpretation"
+])}
+</div>
+
+<h3>3️⃣ English</h3>
+<div class="box">
+${makeSSCList([
+"Reading Comprehension","Cloze Test","Error Detection","Sentence Improvement",
+"Fill in the Blanks","Synonyms","Antonyms","One Word Substitution",
+"Idioms & Phrases","Active Passive","Direct Indirect","Para Jumbles"
+])}
+</div>
+
+<h3>4️⃣ General Awareness</h3>
+<div class="box">
+${makeSSCList([
+"History","Geography","Polity","Economics","Physics",
+"Chemistry","Biology","Static GK","Current Affairs"
+])}
+</div>
+
+<h3>⏱ Exam Timer</h3>
+<button onclick="startTimer()">Start 60 Min Timer</button>
+<div id="timer"></div>
+
+<button onclick="back()">⬅ Back</button>
+`
+
+setupSSC()
+
 }
 
-function toggle(el){
-let next=el.nextElementSibling;
-next.style.display=next.style.display==="block"?"none":"block";
+function makeSSCList(topics){
+let h=""
+topics.forEach(t=>{
+h+=`<label><input type="checkbox" class="ssc"> ${t}</label><br>`
+})
+return h
 }
+
+function setupSSC(){
+
+let boxes=document.querySelectorAll(".ssc")
+
+boxes.forEach((b,i)=>{
+
+b.checked=localStorage.getItem("ssc"+i)==="true"
+
+b.onchange=()=>{
+localStorage.setItem("ssc"+i,b.checked)
+updateSSC()
+}
+
+})
+
+updateSSC()
+
+}
+
+function updateSSC(){
+
+let boxes=document.querySelectorAll(".ssc")
+
+let done=0
+
+boxes.forEach(b=>{
+if(b.checked) done++
+})
+
+let percent=Math.round((done/boxes.length)*100)
+
+document.getElementById("sscOverall").innerText=
+"SSC Progress: "+percent+"%"
+
+}
+
+let interval
+
+function startTimer(){
+
+let time=60*60
+
+interval=setInterval(()=>{
+
+time--
+
+let m=Math.floor(time/60)
+let s=time%60
+
+document.getElementById("timer").innerText=
+"Time Left: "+m+":"+ (s<10?"0":"")+s
+
+if(time<=0){
+clearInterval(interval)
+}
+
+},1000)
+
+}
+
 
 // ===== BUSINESS =====
-function business(){
-main.innerHTML=`
+function showBusiness(){
+
+mainDiv.innerHTML=`
 <h2>💰 Business Tracker</h2>
+
 <input id="rev" placeholder="Revenue">
+
 <input id="ad" placeholder="Ad Spend">
+
 <button onclick="calc()">Calculate</button>
+
 <div id="profit"></div>
 
 <h3>30 Winning Products</h3>
-${products()}
+
+${makeProducts()}
 
 <button onclick="back()">⬅ Back</button>
-`;
+`
+
 }
 
 function calc(){
-let r=parseFloat(rev.value)||0;
-let a=parseFloat(ad.value)||0;
-profit.innerText="Profit ₹ "+(r-a);
+
+let r=parseFloat(document.getElementById("rev").value)||0
+let a=parseFloat(document.getElementById("ad").value)||0
+
+document.getElementById("profit").innerText="Profit ₹ "+(r-a)
+
 }
 
-function products(){
-let h="";
+function makeProducts(){
+
+let h=""
+
 for(let i=1;i<=30;i++){
-h+=`<input placeholder="Product ${i}">`;
+h+=`<input placeholder="Product ${i}">`
 }
-return h;
+
+return h
+
 }
+
 
 // ===== BOOKS =====
-function books(){
-main.innerHTML=`
+function showBooks(){
+
+mainDiv.innerHTML=`
 <h2>📘 Book Link</h2>
+
 <input id="bookLink" placeholder="Paste PDF Link">
+
 <button onclick="saveBook()">Save</button>
+
 <div id="savedBook"></div>
+
 <button onclick="back()">⬅ Back</button>
-`;
-let saved=localStorage.getItem("book");
-if(saved){savedBook.innerHTML=`<a href="${saved}" target="_blank">Open Book</a>`;}
+`
+
+let saved=localStorage.getItem("book")
+
+if(saved){
+
+document.getElementById("savedBook").innerHTML=
+`<a href="${saved}" target="_blank">Open Book</a>`
+
+}
+
 }
 
 function saveBook(){
-localStorage.setItem("book",bookLink.value);
-location.reload();
+
+localStorage.setItem(
+"book",
+document.getElementById("bookLink").value
+)
+
+location.reload()
+
 }
 
 </script>
+
 </body>
-</html>n
+</html>
